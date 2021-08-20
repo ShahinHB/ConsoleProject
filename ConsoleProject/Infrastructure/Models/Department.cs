@@ -9,7 +9,7 @@ namespace ConsoleProject.Infrastructure.Models
         public string Name { get; set; }
         public int WorkerLimit { get; set; }
         public double SalaryLimit { get; set; }
-        public Employee Employees { get; set; }
+        public Employee Employees;
         public  double CalcSalaryAverage()
         {
             return 6;

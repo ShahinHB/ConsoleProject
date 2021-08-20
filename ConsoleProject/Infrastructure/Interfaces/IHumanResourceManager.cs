@@ -7,12 +7,12 @@ namespace ConsoleProject.Infrastructure.Interfaces
 {
     interface IHumanResourceManager
     {
-        public List<Department> Departments { get; }
-        public void AddDepartment(Department department);
-        public List<Department> GetDepartment();
-        public void EditDepartments();
-        public void AddEmployee(); // parametrlərini yazmalıyam
-        public void RemoveEmployee();
-        public void EditEmployee(int number, string fullName, double Salary, string Position);
+        List<Department> Departments { get; }
+        void AddDepartment(Department department);
+        List<Department> GetDepartment();
+        List<Department> EditDepartments(string oldName, string newName);
+        void AddEmployee(Employee employee);
+        void RemoveEmployee(string employeeNo, string departmentName);
+        List<Employee> EditEmployee(string number, string fullName, double Salary, string Position);
     }
 }
