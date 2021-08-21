@@ -13,7 +13,11 @@ namespace ConsoleProject.Infrastructure.Services
         private List<Employee> _employees;
         public List<Department> Departments => _departments;
         public List<Employee> Employees => _employees;
-  
+        public HumanResourceManager()
+        {
+            _departments = new List<Department>();
+            _employees = new List<Employee>();
+        }
 
         public void AddDepartment(Department department)
         {
@@ -30,9 +34,9 @@ namespace ConsoleProject.Infrastructure.Services
               return _departments.FindAll(d=>d.Name == oldName);
         }
 
-        public List<Employee> EditEmployee(string number, string fullName, double Salary, string Position)
+        public List<Employee> EditEmployee(string number, string fullName, double salary, string position)
         {
-            return _employees.FindAll(e => e.No.ToLower() == number.ToLower() && e.Name.ToLower() == fullName.ToLower() && e.Salary == Salary && e.Position.ToLower() == Position.ToLower()).ToList();
+            return _employees.FindAll(e => e.Code.ToLower() == number.ToLower() && e.FullName.ToLower() == fullName.ToLower() && e.Salary == salary && e.Position.ToLower() == position.ToLower()).ToList();
         }
 
         public List<Department> GetDepartment()
@@ -43,7 +47,7 @@ namespace ConsoleProject.Infrastructure.Services
         public void RemoveEmployee(string employeeNo, string departmentName)
         {
             var EmployeeList = _employees.ToList();
-            var RemovedItem = _employees.Find(e => e.No.ToLower() == employeeNo.ToLower() && e.DepartmentName.ToLower() == departmentName.ToLower());
+            var RemovedItem = _employees.Find(e => e.Code.ToLower() == employeeNo.ToLower() && e.DepartmentName.ToLower() == departmentName.ToLower());
             _employees.Remove(RemovedItem);
         }
     }

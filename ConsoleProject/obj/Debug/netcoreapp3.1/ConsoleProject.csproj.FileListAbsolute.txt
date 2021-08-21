@@ -1,0 +1,15 @@
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\bin\Debug\netcoreapp3.1\ConsoleProject.exe
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\bin\Debug\netcoreapp3.1\ConsoleProject.deps.json
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\bin\Debug\netcoreapp3.1\ConsoleProject.runtimeconfig.json
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\bin\Debug\netcoreapp3.1\ConsoleProject.runtimeconfig.dev.json
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\bin\Debug\netcoreapp3.1\ConsoleProject.dll
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\bin\Debug\netcoreapp3.1\ConsoleProject.pdb
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.csprojAssemblyReference.cache
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.AssemblyInfoInputs.cache
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.AssemblyInfo.cs
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.csproj.CoreCompileInputs.cache
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.dll
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.pdb
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.genruntimeconfig.cache
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\bin\Debug\netcoreapp3.1\ConsoleTables.dll
+C:\Users\Shahin\Desktop\ConsoleProject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.csproj.CopyComplete

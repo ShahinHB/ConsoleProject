@@ -7,7 +7,7 @@ namespace ConsoleProject.Infrastructure.Models
     class Employee
     {
         private static int _no=1000;
-        public string Name { get; set; }
+        public string FullName { get; set; }
         private string _position;
         public string Position
         {
@@ -17,18 +17,20 @@ namespace ConsoleProject.Infrastructure.Models
             }
             set
             {
-                if (value.Length >= 2)
+                while (value.Length < 2)
                 {
-                    Position = _position;
+                    Console.WriteLine("Vəzifənin adı minimum 2 hərfdən ibarət olmalıdır");
+                    Console.Write("Yenidən daxil edin: ");
+                    value = Console.ReadLine();
                 }
-                else
-                {
-                    Console.WriteLine("Departamentin adı minimum 2 hərfdən ibarət olmalıdır");
-                }
+                _position = value;
+
+
             }
         }
         private double _salary;
-        public double Salary { get
+        public double Salary { 
+            get
             {
                 return _salary;
             }
@@ -36,7 +38,7 @@ namespace ConsoleProject.Infrastructure.Models
             {
                 if (value > 250)
                 {
-                    Salary = _salary;
+                    _salary = value;
                 }
                 else
                 {
@@ -45,11 +47,13 @@ namespace ConsoleProject.Infrastructure.Models
             }
         }
         public string DepartmentName { get; set; }
-        public string No { get; set; }
+        public int No { get; set; }
+        public string Code { get; set; }
+
         public Employee()
         {
             _no++;
-            No = DepartmentName.Substring(0,2).ToUpper() + _no;
+            No = _no;
         }
     }
 }
