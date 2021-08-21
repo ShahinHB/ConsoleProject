@@ -101,7 +101,20 @@ namespace ConsoleProject
         static void ShowEmployeeForDepartment()
         {
 
-        }
+            string departmentName= Console.ReadLine();
+            
+            foreach (Employee emp in _humanResourceManager.Employees)
+            {
+                if (departmentName.ToLower().Equals(emp.DepartmentName))
+                {
+                    Console.WriteLine(emp.Code);
+                    Console.WriteLine(emp.FullName);
+                    Console.WriteLine(emp.Position);
+                    Console.WriteLine(emp.Salary);
+                }
+            }
+            
+        } //completed
         static void ShowAddEmployee()
         {
             Console.WriteLine("------------------Məhsul əlavə et---------------");
