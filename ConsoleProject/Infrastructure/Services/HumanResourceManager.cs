@@ -19,36 +19,40 @@ namespace ConsoleProject.Infrastructure.Services
             _employees = new List<Employee>();
         }
 
-        public void AddDepartment(Department department)
+        #region Methods
+        public void AddDepartment(Department department) //Adding Department to Department Table
         {
             _departments.Add(department);
         }
 
-        public void AddEmployee(Employee employee)
+        public void AddEmployee(Employee employee) //Adding Employee to Employee Table
         {
+            
             _employees.Add(employee);
+            
         }
 
-        public List<Department> EditDepartments(string oldName, string newName)
+        public List<Department> EditDepartments(string oldName, string newName) //Change Department Name
         {
-              return _departments.FindAll(d=>d.Name == oldName);
+              return _departments.FindAll(d=>d.Name.ToLower() == oldName.ToLower());
         }
 
-        public List<Employee> EditEmployee(string number, string fullName, double salary, string position)
+        public List<Employee> EditEmployee(string number, string fullName, double salary, string position) //Change Employee information
         {
             return _employees.FindAll(e => e.Code.ToLower() == number.ToLower() && e.FullName.ToLower() == fullName.ToLower() && e.Salary == salary && e.Position.ToLower() == position.ToLower()).ToList();
         }
 
-        public List<Department> GetDepartment()
+        public List<Department> GetDepartment() //Show Department table
         {
             return _departments;
         }
 
-        public void RemoveEmployee(string employeeNo, string departmentName)
+        public void RemoveEmployee(string employeeNo, string departmentName) //Delete employee from Employees table
         {
             var EmployeeList = _employees.ToList();
             var RemovedItem = _employees.Find(e => e.Code.ToLower() == employeeNo.ToLower() && e.DepartmentName.ToLower() == departmentName.ToLower());
             _employees.Remove(RemovedItem);
         }
+        #endregion
     }
 }
