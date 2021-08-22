@@ -40,9 +40,16 @@ namespace ConsoleProject.Infrastructure.Services
             return _departments.FindAll(d => d.Name.ToLower() == oldName.ToLower()).ToList();
         }
 
-        public List<Employee> EditEmployee(string number, string fullName, double salary, string position) //Change Employee information
+        public void EditEmployee(string number, string fullName, double salary, string position, Employee employee) //Change Employee information
         {
-            return _employees.FindAll(e => e.Code.ToLower() == number.ToLower() && e.FullName.ToLower() == fullName.ToLower() && e.Salary == salary && e.Position.ToLower() == position.ToLower()).ToList();
+            Employee emp = new Employee();
+            if (number == emp.Code)
+            {
+                emp.DepartmentName = employee.DepartmentName;
+                emp.FullName = employee.FullName;
+                emp.Position = employee.Position;
+                emp.Salary = employee.Salary;
+            }
         }
 
         public List<Department> GetDepartment() //Show Department table

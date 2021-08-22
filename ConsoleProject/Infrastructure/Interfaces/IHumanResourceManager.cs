@@ -13,6 +13,6 @@ namespace ConsoleProject.Infrastructure.Interfaces
         List<Department> EditDepartments(string oldName, string newName);
         void AddEmployee(Employee employee);
         void RemoveEmployee(string employeeNo, string departmentName);
-        List<Employee> EditEmployee(string number, string fullName, double Salary, string Position);
+        void EditEmployee(string number, string fullName, double Salary, string Position, Employee employee);
     }
 }

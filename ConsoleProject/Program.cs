@@ -250,62 +250,52 @@ namespace ConsoleProject
         static void ShowEditEmployee(HumanResourceManager _humanResourceManager) //Changing Employee's Information
         {
             #region Entering Employee Information
-            Employee employee = new Employee();
             Console.WriteLine("İşçinin nömrəsini daxil edin");
             string code = Console.ReadLine();
-
-            Console.WriteLine("İşçinin adını daxil edin");
-            string fullName = Console.ReadLine();
-
-            Console.WriteLine("İşçinin vəzifəsini daxil edin");
-            string position = Console.ReadLine();
-
-            Console.WriteLine("İşçinin maaşını daxil edin");
-            double salary = Convert.ToDouble(Console.ReadLine());
             #endregion
 
-
-            if (code.ToLower().Equals(employee.Code.ToLower()) && fullName.ToLower().Equals(employee.FullName.ToLower()) && position.ToLower().Equals(employee.Position.ToLower()) && salary.Equals(employee.Salary)) //Checked Information
+            var list = _humanResourceManager.Employees.Where(e => e.Code.ToLower().Equals(code.ToLower())).ToList();
+            foreach (var item in list)
             {
-                #region Entering new datas
-                Console.Write("İşçinin yeni adını daxil edin: ");
-                string newFullName = Console.ReadLine();
-                Console.WriteLine();
-
-                Console.Write("İşçinin yeni vəzifəsini daxil edin: ");
-                string newPosition = Console.ReadLine();
-                Console.WriteLine();
-
-                Console.Write("İşçinin yeni maaşını daxil edin: ");
-                string newSalaryInput = Console.ReadLine();
-                double newSalary;
-                Console.WriteLine();
-
-                while (!double.TryParse(newSalaryInput, out newSalary))
-                {
+                
+                    #region Entering new datas
+                    Console.Write("İşçinin yeni adını daxil edin: ");
+                    string newFullName = Console.ReadLine();
                     Console.WriteLine();
-                    Console.Write("Yalnız rəqəm daxil edə bilərsiniz");
-                    newSalaryInput = Console.ReadLine();
+
+                    Console.Write("İşçinin yeni vəzifəsini daxil edin: ");
+                    string newPosition = Console.ReadLine();
                     Console.WriteLine();
-                }
 
-                Console.Write("İşçinin yeni iş yerini daxil edin: ");
-                string departmentName = Console.ReadLine();
-                #endregion
+                    Console.Write("İşçinin yeni maaşını daxil edin: ");
+                    string newSalaryInput = Console.ReadLine();
+                    double newSalary;
+                    Console.WriteLine();
 
-                employee.Code = departmentName.Substring(0, 2).ToUpper() + employee.No;
-                employee.DepartmentName = departmentName;
-                employee.FullName = newFullName;
-                employee.Salary = newSalary;
-                employee.Position = newPosition;
+                    while (!double.TryParse(newSalaryInput, out newSalary))
+                    {
+                        Console.WriteLine();
+                        Console.Write("Yalnız rəqəm daxil edə bilərsiniz");
+                        newSalaryInput = Console.ReadLine();
+                        Console.WriteLine();
+                    }
 
-                _humanResourceManager.EditEmployee(departmentName, newFullName, newSalary, newPosition);
-                Console.WriteLine("Əməliyyat uğurla icra olundu");
+                    Console.Write("İşçinin yeni Departamentini daxil edin: ");
+                    string departmentName = Console.ReadLine();
+                    #endregion
+
+                    item.Code = departmentName.Substring(0, 2).ToUpper() + item.No;
+                    item.DepartmentName = departmentName;
+                    item.FullName = newFullName;
+                    item.Salary = newSalary;
+                    item.Position = newPosition;
+
+                    _humanResourceManager.EditEmployee(departmentName, newFullName, newSalary, newPosition, item);
+                    Console.WriteLine("Əməliyyat uğurla icra olundu");
+                
+               
             }
-            else
-            {
-                Console.WriteLine("İşçi tapılmadı");
-            }
+            
         } //completed
         static void ShowRemoveEmployee(HumanResourceManager _humanResourceManager) //Remove Employee from Employee Table
         {
