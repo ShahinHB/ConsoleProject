@@ -37,7 +37,7 @@ namespace ConsoleProject.Infrastructure.Services
 
         public List<Department> EditDepartments(string oldName, string newName) //Change Department Name
         {
-            return _departments.FindAll(d => d.Name.ToLower() == oldName.ToLower());
+            return _departments.FindAll(d => d.Name.ToLower() == oldName.ToLower()).ToList();
         }
 
         public List<Employee> EditEmployee(string number, string fullName, double salary, string position) //Change Employee information
@@ -57,10 +57,7 @@ namespace ConsoleProject.Infrastructure.Services
             _employees.Remove(RemovedItem);
         }
 
-        public List<Department> GetDepartmentbyName(string Name)
-        {
-            return _departments.FindAll(d=>d.Name == Name).ToList();
-        }
+       
         #endregion
     }
 }
