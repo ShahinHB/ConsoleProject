@@ -4,6 +4,7 @@ using System.Text;
 using ConsoleTables;
 using ConsoleProject.Infrastructure.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleProject
 {
@@ -76,13 +77,16 @@ namespace ConsoleProject
         #region Choosing Methods
         static void ShowGetDepartment() //Show Department Table
         {
-            var table = new ConsoleTable ("Sıra","Adı", "İşçi limiti", "Maaş limiti","İşçi sayı");
+            var table = new ConsoleTable("Sıra", "Adı", "İşçi limiti", "Maaş limiti", "İşçi sayı");
             var i = 1;
             #region Department Table
             foreach (var item in _humanResourceManager.Departments)
             {
-                table.AddRow(i, item.Name, item.WorkerLimit, item.SalaryLimit, _humanResourceManager.Employees.Count);
+             
+
+                table.AddRow(i, item.Name, item.WorkerLimit, item.SalaryLimit, _humanResourceManager.Employees.FindAll(e=>e.DepartmentName == item.Name).Count);
                 i++;
+                
             }
             table.Write();
             #endregion
@@ -142,13 +146,13 @@ namespace ConsoleProject
         } //completed
         static void ShowAllEmployee() //Show Employee Table
         {
-            var table = new ConsoleTable("Sıra","İşçi nömrəsi", "Adı","Vəzifəsi","İşlədiyi Departament","Maaş");
+            var table = new ConsoleTable("Sıra", "İşçi nömrəsi", "Adı", "Vəzifəsi", "İşlədiyi Departament", "Maaş");
             var i = 1;
 
             #region Employee Table
             foreach (var item in _humanResourceManager.Employees)
             {
-                table.AddRow(i, item.Code, item.FullName,item.Position, item.DepartmentName, item.Salary);
+                table.AddRow(i, item.Code, item.FullName, item.Position, item.DepartmentName, item.Salary);
                 i++;
             }
             #endregion
@@ -157,8 +161,8 @@ namespace ConsoleProject
         static void ShowEmployeeForDepartment() // Find Employee just same Department
         {
 
-            string departmentName= Console.ReadLine();
-            
+            string departmentName = Console.ReadLine();
+
             foreach (Employee emp in _humanResourceManager.Employees)
             {
                 if (departmentName.ToLower().Equals(emp.DepartmentName))
@@ -169,23 +173,20 @@ namespace ConsoleProject
                     Console.WriteLine(emp.Salary);
                 }
             }
-            
+
         } //completed
         static void ShowAddEmployee() //Adding Employee to Employees Table
         {
             #region Entering Employee's Information
             Console.WriteLine("------------------Məhsul əlavə et---------------");
             Employee employee = new Employee();
-            Department department = new Department();
-
+            //var list = _humanResourceManager.Employees.Where(e => e.DepartmentName.ToLower() == item.Name).ToList();
             Console.Write("İşçinin adını və Soyadını daxil edin: ");
             string fullName = Console.ReadLine();
-            employee.FullName = fullName;
             Console.WriteLine();
 
             Console.Write("İşçinin vəzifəsini daxil edin: ");
             string position = Console.ReadLine();
-            employee.Position = position;
             Console.WriteLine();
 
             Console.Write("Maaşını daxil edin: ");
@@ -200,11 +201,33 @@ namespace ConsoleProject
 
             Console.Write("Çalışdığı Departamentin adını qeyd edin: ");
             string departmentName = Console.ReadLine();
-            employee.DepartmentName = departmentName;
             Console.WriteLine();
             #endregion
 
-            employee.Salary = salary;
+            var list = _humanResourceManager.Employees.Where(e=>e.DepartmentName == departmentName).ToList();
+            var count = _humanResourceManager.Employees.Where(e => e.DepartmentName == departmentName).Count();
+            var salaryLimit = _humanResourceManager.Departments.Find(d => d.Name == departmentName).SalaryLimit;
+            var workerLimit = _humanResourceManager.Departments.Find(d => d.Name == departmentName).WorkerLimit;
+
+
+            double total = 0;
+            foreach (var item in list)
+            {
+                total += item.Salary;
+            }
+
+            if (total < salaryLimit && count < workerLimit)
+            {
+                employee.Salary = salary;
+                employee.FullName = fullName;
+                employee.Position = position;
+                employee.DepartmentName = departmentName;
+            }
+            else
+            {
+                Console.WriteLine("İşçi əlavə edilə bilmədi. Departamentdəki maaş limiti yaxud işçi limiti dolmuşdur");
+            }
+            
 
             employee.Code = employee.DepartmentName.Substring(0, 2).ToUpper() + employee.No;
 
@@ -228,8 +251,8 @@ namespace ConsoleProject
             double salary = Convert.ToDouble(Console.ReadLine());
             #endregion
 
-             
-            if (code.ToLower().Equals(employee.Code.ToLower()) && fullName.ToLower().Equals(employee.FullName.ToLower()) && position.ToLower().Equals(employee.Position.ToLower()) && salary.Equals(employee.Salary )) //Checked Information
+
+            if (code.ToLower().Equals(employee.Code.ToLower()) && fullName.ToLower().Equals(employee.FullName.ToLower()) && position.ToLower().Equals(employee.Position.ToLower()) && salary.Equals(employee.Salary)) //Checked Information
             {
                 #region Entering new datas
                 Console.Write("İşçinin yeni adını daxil edin: ");
@@ -257,7 +280,7 @@ namespace ConsoleProject
                 string departmentName = Console.ReadLine();
                 #endregion
 
-                employee.Code = departmentName.Substring(0,2).ToUpper() + employee.No;
+                employee.Code = departmentName.Substring(0, 2).ToUpper() + employee.No;
                 employee.DepartmentName = departmentName;
                 employee.FullName = newFullName;
                 employee.Salary = newSalary;

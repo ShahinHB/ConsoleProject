@@ -9,6 +9,7 @@ namespace ConsoleProject.Infrastructure.Services
 {
     class HumanResourceManager : IHumanResourceManager
     {
+
         private List<Department> _departments;
         private List<Employee> _employees;
         public List<Department> Departments => _departments;
@@ -17,6 +18,7 @@ namespace ConsoleProject.Infrastructure.Services
         {
             _departments = new List<Department>();
             _employees = new List<Employee>();
+            
         }
 
         #region Methods
@@ -27,14 +29,15 @@ namespace ConsoleProject.Infrastructure.Services
 
         public void AddEmployee(Employee employee) //Adding Employee to Employee Table
         {
-            
+
             _employees.Add(employee);
-            
+
+
         }
 
         public List<Department> EditDepartments(string oldName, string newName) //Change Department Name
         {
-              return _departments.FindAll(d=>d.Name.ToLower() == oldName.ToLower());
+            return _departments.FindAll(d => d.Name.ToLower() == oldName.ToLower());
         }
 
         public List<Employee> EditEmployee(string number, string fullName, double salary, string position) //Change Employee information
@@ -52,6 +55,11 @@ namespace ConsoleProject.Infrastructure.Services
             var EmployeeList = _employees.ToList();
             var RemovedItem = _employees.Find(e => e.Code.ToLower() == employeeNo.ToLower() && e.DepartmentName.ToLower() == departmentName.ToLower());
             _employees.Remove(RemovedItem);
+        }
+
+        public List<Department> GetDepartmentbyName(string Name)
+        {
+            return _departments.FindAll(d=>d.Name == Name).ToList();
         }
         #endregion
     }

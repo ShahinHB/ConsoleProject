@@ -7,6 +7,7 @@ namespace ConsoleProject.Infrastructure.Interfaces
 {
     interface IHumanResourceManager
     {
+        List<Department> GetDepartmentbyName(string Name);
         List<Department> Departments { get; }
         void AddDepartment(Department department);
         List<Department> GetDepartment();
