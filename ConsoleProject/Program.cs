@@ -214,13 +214,13 @@ namespace ConsoleProject
             int workerLimit = _humanResourceManager.Departments.Find(d => d.Name.ToLower() == departmentName.ToLower()).WorkerLimit; // return Department workerLimit where we entered name equals this employees departmentName
 
             #endregion
-            double total = salary;
+            double total = 0;
             foreach (var item in list)
             {
                 total += item.Salary;
             }
 
-            if (total < salaryLimit)
+            if (total + salary< salaryLimit)
             {
                 if (count < workerLimit)
                 {
