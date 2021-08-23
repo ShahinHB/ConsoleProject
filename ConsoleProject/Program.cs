@@ -18,6 +18,7 @@ namespace ConsoleProject
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
+
             int selectInt;
             do
             {
@@ -131,19 +132,20 @@ namespace ConsoleProject
 
             foreach (var item in list)
             {
-                
+                    
                     Console.Write("Departamentin yeni adını daxil edin: ");
                     string changingName = Console.ReadLine();
                     item.Name = changingName;
+                    Employee employee = new Employee();
 
                     _humanResourceManager.EditDepartments(name, changingName); // calling EditDepartment Method
+                    var newList = _humanResourceManager.Employees.FindAll(e => e.DepartmentName == changingName).ToList();
+                    foreach (var elem in newList)
+                    {
 
-                
-                
-
+                        elem.Code =  changingName.Substring(0, 2) + employee.No;
+                    }
             }
-
-
         } //completed
         static void ShowAllEmployee(HumanResourceManager _humanResourceManager) //Show Employee Table
         {
@@ -208,38 +210,46 @@ namespace ConsoleProject
 
             #endregion
             #region Arrow Function
+            bool check = _humanResourceManager.Employees.Exists(e => e.DepartmentName.ToLower() == departmentName.ToLower());
             var list = _humanResourceManager.Employees.Where(e=>e.DepartmentName.ToLower() == departmentName.ToLower()).ToList(); // return employees list where we entered name equals this employees departmentName 
             var count = _humanResourceManager.Employees.Where(e => e.DepartmentName.ToLower() == departmentName.ToLower()).Count(); // return how many employees where we entered name equals this employees departmentName
-            double salaryLimit = _humanResourceManager.Departments.Find(d => d.Name.ToLower() == departmentName.ToLower()).SalaryLimit; // return Department salarylimit where we entered name equals this employees departmentName
-            int workerLimit = _humanResourceManager.Departments.Find(d => d.Name.ToLower() == departmentName.ToLower()).WorkerLimit; // return Department workerLimit where we entered name equals this employees departmentName
-
+            
             #endregion
             double total = 0;
             foreach (var item in list)
             {
                 total += item.Salary;
             }
-
-            if (total + salary< salaryLimit)
+            if (check == true)
             {
-                if (count < workerLimit)
+                double salaryLimit = _humanResourceManager.Departments.Find(d => d.Name.ToLower() == departmentName.ToLower()).SalaryLimit; // return Department salarylimit where we entered name equals this employees departmentName
+                int workerLimit = _humanResourceManager.Departments.Find(d => d.Name.ToLower() == departmentName.ToLower()).WorkerLimit; // return Department workerLimit where we entered name equals this employees departmentName
+
+                if (total + salary < salaryLimit)
                 {
-                    employee.Salary = salary;
-                    employee.FullName = fullName;
-                    employee.Position = position;
-                    employee.DepartmentName = departmentName;
-                    employee.Code = departmentName.Substring(0, 2).ToUpper() + employee.No;
-                    _humanResourceManager.AddEmployee(employee);
-                    Console.WriteLine("İşçi əlavə edildi");
+                    if (count < workerLimit)
+                    {
+                        employee.Salary = salary;
+                        employee.FullName = fullName;
+                        employee.Position = position;
+                        employee.DepartmentName = departmentName;
+                        employee.Code = departmentName.Substring(0, 2).ToUpper() + employee.No;
+                        _humanResourceManager.AddEmployee(employee);
+                        Console.WriteLine("İşçi əlavə edildi");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Departamentdə işçi limiti dolub");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Departamentdə işçi limiti dolub");
+                    Console.Write("Maaş limitini keçə bilməzsiniz");
                 }
             }
             else
             {
-                Console.Write("Maaş limitini keçə bilməzsiniz");
+                Console.WriteLine("Daxil etdiyiniz adda Departament tapılmadı");
             }
             
 
@@ -299,12 +309,17 @@ namespace ConsoleProject
         } //completed
         static void ShowRemoveEmployee(HumanResourceManager _humanResourceManager) //Remove Employee from Employee Table
         {
+            Department department = new Department();
             Employee employee = new Employee();
-            Console.WriteLine("---------------İşçini ləğv et----------------");
+
+            Console.WriteLine("Departamentin adını daxil edin");
+            string departmentName = Console.ReadLine();
+            department.Name = departmentName;
+
             Console.WriteLine("İşçinin nömrəsini daxil edin");
             string no = Console.ReadLine();
-            Console.WriteLine("İşçinin adını daxil edin");
-            string departmentName = Console.ReadLine();
+            employee.Code = no;
+
             _humanResourceManager.RemoveEmployee(no, departmentName);
         } //completed
 

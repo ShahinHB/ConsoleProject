@@ -29,10 +29,7 @@ namespace ConsoleProject.Infrastructure.Services
 
         public void AddEmployee(Employee employee) //Adding Employee to Employee Table
         {
-
             _employees.Add(employee);
-
-
         }
 
         public List<Department> EditDepartments(string oldName, string newName) //Change Department Name
@@ -43,7 +40,7 @@ namespace ConsoleProject.Infrastructure.Services
         public void EditEmployee(string number, string fullName, double salary, string position, Employee employee) //Change Employee information
         {
             Employee emp = new Employee();
-            if (number == emp.Code)
+            if (number.ToLower() == emp.Code.ToLower())
             {
                 emp.DepartmentName = employee.DepartmentName;
                 emp.FullName = employee.FullName;
@@ -59,9 +56,18 @@ namespace ConsoleProject.Infrastructure.Services
 
         public void RemoveEmployee(string employeeNo, string departmentName) //Delete employee from Employees table
         {
-            var EmployeeList = _employees.ToList();
-            var RemovedItem = _employees.Find(e => e.Code.ToLower() == employeeNo.ToLower() && e.DepartmentName.ToLower() == departmentName.ToLower());
-            _employees.Remove(RemovedItem);
+            var department = _departments.Find(d => d.Name == departmentName);
+
+            bool findedEmployee = _employees.Exists(e => e.Code == employeeNo);
+            var employee = _employees.Find(e => e.Code == employeeNo);
+            if (findedEmployee == true)
+            {
+                _employees.Remove(employee);
+            }
+            else
+            {
+                Console.WriteLine("Daxil etdiyiniz nömrəyə uyğun işçi tapılmadı");
+            }
         }
 
        
