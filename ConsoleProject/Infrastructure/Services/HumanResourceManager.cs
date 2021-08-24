@@ -18,7 +18,7 @@ namespace ConsoleProject.Infrastructure.Services
         {
             _departments = new List<Department>();
             _employees = new List<Employee>();
-            
+
         }
 
         #region Methods
@@ -40,13 +40,7 @@ namespace ConsoleProject.Infrastructure.Services
         public void EditEmployee(string number, string fullName, double salary, string position, Employee employee) //Change Employee information
         {
             Employee emp = new Employee();
-            if (number.ToLower() == emp.Code.ToLower())
-            {
-                emp.DepartmentName = employee.DepartmentName;
-                emp.FullName = employee.FullName;
-                emp.Position = employee.Position;
-                emp.Salary = employee.Salary;
-            }
+            
         }
 
         public List<Department> GetDepartment() //Show Department table
@@ -56,13 +50,14 @@ namespace ConsoleProject.Infrastructure.Services
 
         public void RemoveEmployee(string employeeNo, string departmentName) //Delete employee from Employees table
         {
-            var department = _departments.Find(d => d.Name == departmentName);
+            var department = _departments.Find(d => d.Name.ToLower() == departmentName.ToLower());
 
-            bool findedEmployee = _employees.Exists(e => e.Code == employeeNo);
-            var employee = _employees.Find(e => e.Code == employeeNo);
+            bool findedEmployee = _employees.Exists(e => e.Code.ToLower() == employeeNo.ToLower());
+            var employee = _employees.Find(e => e.Code.ToLower() == employeeNo.ToLower());
             if (findedEmployee == true)
             {
                 _employees.Remove(employee);
+                Console.WriteLine("İşçi silindi");
             }
             else
             {
@@ -70,7 +65,7 @@ namespace ConsoleProject.Infrastructure.Services
             }
         }
 
-       
+
         #endregion
     }
 }

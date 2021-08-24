@@ -22,10 +22,10 @@ namespace ConsoleProject.Infrastructure.Models
                     Console.WriteLine("Vəzifənin adı minimum 2 hərfdən ibarət olmalıdır");
                     Console.Write("Yenidən daxil edin: ");
                     value = Console.ReadLine();
+                    Console.WriteLine();
                 }
                 _position = value;
-
-
+                Console.WriteLine();
             }
         }
         private double _salary;
@@ -36,14 +36,15 @@ namespace ConsoleProject.Infrastructure.Models
             }
             set
             {
-                if (value > 250)
-                {
-                    _salary = value;
-                }
-                else
+                while (value < 250)
                 {
                     Console.WriteLine("Maaş 250 manatdan yuxarı olmalıdır");
+                    Console.Write("Yenidən daxil edin: ");
+                    value = Convert.ToDouble(Console.ReadLine());
+                    Console.WriteLine();
                 }
+                _salary = value;
+                Console.WriteLine();
             }
         }
         public string DepartmentName { get; set; }
